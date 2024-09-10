@@ -13,6 +13,11 @@ class RecintosZoo {
         if (!(animal in animais)) {
             return { erro: 'Animal inválido' };
         }
+
+        if (!Number.isInteger(quantidade)) {
+            return { erro: 'Quantidade inválida' };
+        }
+
     }
 
 }
