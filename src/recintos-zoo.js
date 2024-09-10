@@ -6,7 +6,6 @@ class RecintosZoo {
     constructor() {
         this.recintos = recintos;
         this.animais = animais;
-        const recintosViaveis = [];
     }
 
     analisaRecintos(animal, quantidade) {
@@ -20,12 +19,14 @@ class RecintosZoo {
         }
 
         const { biomas } = animais[animal];
-        console.log('Biomas: ');
-        for (var i = 0; i < biomas.length; i++) {
-            console.log(biomas[i])
-        }
+        var recintosViaveis = [];
 
-        return recintosViaveis;
+        recintosViaveis = recintos.filter(recinto =>
+            biomas.some(bioma => recinto.bioma.includes(bioma)));
+
+        console.log(animal, recintosViaveis);
+
+        return { recintosViaveis };
 
     }
 
