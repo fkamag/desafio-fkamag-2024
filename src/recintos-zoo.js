@@ -6,6 +6,7 @@ class RecintosZoo {
     constructor() {
         this.recintos = recintos;
         this.animais = animais;
+        const recintosViaveis = [];
     }
 
     analisaRecintos(animal, quantidade) {
@@ -17,6 +18,14 @@ class RecintosZoo {
         if (!Number.isInteger(quantidade) || quantidade <= 0) {
             return { erro: 'Quantidade inválida' };
         }
+
+        const { biomas } = animais[animal];
+        console.log('Biomas: ');
+        for (var i = 0; i < biomas.length; i++) {
+            console.log(biomas[i])
+        }
+
+        return recintosViaveis;
 
     }
 

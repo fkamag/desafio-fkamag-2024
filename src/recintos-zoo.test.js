@@ -26,6 +26,12 @@ test('Deve rejeitar quantidade não numérica', () => {
     expect(resultado.recintosViaveis).toBeFalsy();
 });
 
+test('Deve verificar se o bioma é compatível com o animal', () => {
+    const resultado = new RecintosZoo().analisaRecintos('MACACO', '1');
+    expect(resultado.erro).toBe("Quantidade inválida");
+    expect(resultado.recintosViaveis).toBeFalsy();
+});
+
     test('Não deve encontrar recintos para 10 macacos', () => {
             const resultado = new RecintosZoo().analisaRecintos('MACACO', 10);
             expect(resultado.erro).toBe("Não há recinto viável");
