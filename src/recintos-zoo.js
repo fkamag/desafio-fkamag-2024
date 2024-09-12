@@ -37,11 +37,14 @@ class RecintosZoo {
         });
 
         biomaAdequado = biomaAdequado.filter(recinto => {
-            console.log(recinto);
-            console.log(carnivoro)
-            console.log(recinto.animais.length)
-            if (carnivoro && recinto.animais.length > 0) {
-                return recinto.animais.every(anim => anim.especie === animal);
+            if (recinto.animais.length > 0) {
+                const animalNoRecintoEhCarnivoro = animais[recinto.animais[0].especie].carnivoro;
+                if (carnivoro || animalNoRecintoEhCarnivoro) {
+                    return recinto.animais.every(anim => anim.especie === animal);
+                }
+                if (recinto.animais[0].especie != animal) {
+                    recinto.espacoLivre -= 1;
+                }
             }
             return true;
         });
@@ -51,8 +54,6 @@ class RecintosZoo {
                 `Recinto ${recinto.numero} (espaço livre: ${recinto.espacoLivre - (quantidade * tamanho)} total: ${recinto.tamanho})`
                 )
         })
-
-        console.log(recintosViaveis)
 
         if (recintosViaveis.length === 0) {
             return { erro: 'Não há recinto viável'};
