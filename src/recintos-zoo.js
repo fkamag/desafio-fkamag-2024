@@ -23,14 +23,12 @@ class RecintosZoo {
         // define espaços Ocupados e Livres em cada recinto
         recintos.forEach(recinto => {
             let espacoOcupado = 0;
-            let espacoLivre = recinto.tamanho;
 
             recinto.animais.forEach(animalRecinto => {
                 espacoOcupado += animalRecinto.quantidade * animais[animalRecinto.especie].tamanho;
-                espacoLivre -= espacoOcupado;
             })
             recinto.espacoOcupado = espacoOcupado;
-            recinto.espacoLivre = espacoLivre;
+            recinto.espacoLivre = recinto.tamanho - espacoOcupado;
         });
 
         // filtra os biomas compatíveis com a requisição
@@ -39,7 +37,7 @@ class RecintosZoo {
 
         // filtra os biomas com capacidade para atender a requisição
         biomaAdequado = biomaAdequado.filter(recinto => {
-            return recinto.espacoLivre > espacoRequerido;
+            return recinto.espacoLivre >= espacoRequerido;
         });
 
         // verifica se tem animais carnívoros na requisição ou nos recintos

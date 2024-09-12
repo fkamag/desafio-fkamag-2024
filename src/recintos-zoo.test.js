@@ -67,5 +67,20 @@ test('Deve rejeitar quantidade não numérica', () => {
         expect(resultado.recintosViaveis.length).toBe(2);
     });
 
+    test('Deve encontrar recintos para 1 leopardo', () => {
+
+        const resultado = new RecintosZoo().analisaRecintos('LEOPARDO', 1);
+        expect(resultado.erro).toBe("Não há recinto viável");
+        expect(resultado.recintosViaveis).toBeFalsy();
+    });
+
+    test('Deve encontrar recintos para 2 leões', () => {
+
+        const resultado = new RecintosZoo().analisaRecintos('LEAO', 2);
+        expect(resultado.erro).toBeFalsy();
+        expect(resultado.recintosViaveis[0]).toBe('Recinto 5 (espaço livre: 0 total: 9)');
+        expect(resultado.recintosViaveis.length).toBe(1);
+    });
+
 });
 
