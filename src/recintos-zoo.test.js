@@ -26,23 +26,18 @@ test('Deve rejeitar quantidade não numérica', () => {
     expect(resultado.recintosViaveis).toBeFalsy();
 });
 
-test('Deve verificar se o bioma é compatível com o animal', () => {
-    const resultado = new RecintosZoo().analisaRecintos('CROCODILO', 1);
-    expect(resultado.recintosViaveis.length).toBe(2);
-});
-
     test('Não deve encontrar recintos para 10 macacos', () => {
             const resultado = new RecintosZoo().analisaRecintos('MACACO', 10);
             expect(resultado.erro).toBe("Não há recinto viável");
             expect(resultado.recintosViaveis).toBeFalsy();
         });
 
-    // test('Deve encontrar recinto para 1 crocodilo', () => {
-    //     const resultado = new RecintosZoo().analisaRecintos('CROCODILO', 1);
-    //     expect(resultado.erro).toBeFalsy();
-    //     expect(resultado.recintosViaveis[0]).toBe('Recinto 4 (espaço livre: 5 total: 8)');
-    //     expect(resultado.recintosViaveis.length).toBe(1);
-    // });
+    test('Deve encontrar recinto para 1 crocodilo', () => {
+        const resultado = new RecintosZoo().analisaRecintos('CROCODILO', 1);
+        expect(resultado.erro).toBeFalsy();
+        expect(resultado.recintosViaveis[0]).toBe('Recinto 4 (espaço livre: 5 total: 8)');
+        expect(resultado.recintosViaveis.length).toBe(1);
+    });
 
     // test('Deve encontrar recintos para 2 macacos', () => {
 

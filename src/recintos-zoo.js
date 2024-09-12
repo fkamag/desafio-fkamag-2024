@@ -13,9 +13,9 @@ class RecintosZoo {
             return { erro: 'Quantidade inválida' };
         }
 
-        const { biomas, tamanho } = animais[animal];
+        const { biomas, tamanho, carnivoro } = animais[animal];
         var recintosViaveis = [];
-        const espacoRequerido = animais[animal].tamanho * quantidade;
+        const espacoRequerido = tamanho * quantidade;
 
         recintos.forEach(recinto => {
             let espacoOcupado = 0;
@@ -32,11 +32,27 @@ class RecintosZoo {
         var biomaAdequado = recintos.filter(recinto =>
             biomas.some(bioma => recinto.bioma.includes(bioma)));
 
-        var biomaAdequado = biomaAdequado.filter(recinto => {
+        biomaAdequado = biomaAdequado.filter(recinto => {
             return recinto.espacoLivre > espacoRequerido;
         });
 
-        recintosViaveis = biomaAdequado;
+        biomaAdequado = biomaAdequado.filter(recinto => {
+            console.log(recinto);
+            console.log(carnivoro)
+            console.log(recinto.animais.length)
+            if (carnivoro && recinto.animais.length > 0) {
+                return recinto.animais.every(anim => anim.especie === animal);
+            }
+            return true;
+        });
+
+        biomaAdequado.forEach(recinto => {
+            recintosViaveis.push(
+                `Recinto ${recinto.numero} (espaço livre: ${recinto.espacoLivre - (quantidade * tamanho)} total: ${recinto.tamanho})`
+                )
+        })
+
+        console.log(recintosViaveis)
 
         if (recintosViaveis.length === 0) {
             return { erro: 'Não há recinto viável'};
