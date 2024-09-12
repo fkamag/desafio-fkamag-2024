@@ -58,6 +58,12 @@ class RecintosZoo {
             })
         }
 
+        if (animal === 'MACACO' && quantidade === 1) {
+            biomaAdequado = biomaAdequado.filter(recinto => {
+                return recinto.animais.length > 0;
+            })
+        }
+
         biomaAdequado.forEach(recinto => {
             recintosViaveis.push(
                 `Recinto ${recinto.numero} (espaço livre: ${recinto.espacoLivre - (quantidade * tamanho)} total: ${recinto.tamanho})`
