@@ -49,6 +49,15 @@ class RecintosZoo {
             return true;
         });
 
+        if (animal === 'HIPOPOTAMO') {
+            biomaAdequado = biomaAdequado.filter(recinto => {
+                if (recinto.animais.length > 0) {
+                    return recinto.bioma === 'savana e rio';
+                }
+                return true;
+            })
+        }
+
         biomaAdequado.forEach(recinto => {
             recintosViaveis.push(
                 `Recinto ${recinto.numero} (espaço livre: ${recinto.espacoLivre - (quantidade * tamanho)} total: ${recinto.tamanho})`
