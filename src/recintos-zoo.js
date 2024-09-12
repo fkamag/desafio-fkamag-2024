@@ -3,11 +3,6 @@ import { animais } from './animais.js';
 
 class RecintosZoo {
 
-    constructor() {
-        this.recintos = recintos;
-        this.animais = animais;
-    }
-
     analisaRecintos(animal, quantidade) {
 
         if (!(animal in animais)) {
@@ -18,13 +13,34 @@ class RecintosZoo {
             return { erro: 'Quantidade inválida' };
         }
 
-        const { biomas } = animais[animal];
+        const { biomas, tamanho } = animais[animal];
         var recintosViaveis = [];
+        const espacoRequerido = animais[animal].tamanho * quantidade;
 
-        recintosViaveis = recintos.filter(recinto =>
+        recintos.forEach(recinto => {
+            let espacoOcupado = 0;
+            let espacoLivre = recinto.tamanho;
+
+            recinto.animais.forEach(animalRecinto => {
+                espacoOcupado += animalRecinto.quantidade * animais[animalRecinto.especie].tamanho;
+                espacoLivre -= espacoOcupado;
+            })
+            recinto.espacoOcupado = espacoOcupado;
+            recinto.espacoLivre = espacoLivre;
+        });
+
+        var biomaAdequado = recintos.filter(recinto =>
             biomas.some(bioma => recinto.bioma.includes(bioma)));
 
-        console.log(animal, recintosViaveis);
+        var biomaAdequado = biomaAdequado.filter(recinto => {
+            return recinto.espacoLivre > espacoRequerido;
+        });
+
+        recintosViaveis = biomaAdequado;
+
+        if (recintosViaveis.length === 0) {
+            return { erro: 'Não há recinto viável'};
+        }
 
         return { recintosViaveis };
 
